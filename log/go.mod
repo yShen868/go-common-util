@@ -1,4 +1,4 @@
-module github.com/yShen868/go-common-util
+module github.com/yShen868/go-common-util/log
 
 go 1.26.2
 
