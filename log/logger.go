@@ -3,6 +3,7 @@ package log
 import (
 	"fmt"
 
+	"github.com/yShen868/go-common-util/config"
 	"go.uber.org/zap"
 	"go.uber.org/zap/zapcore"
 )
@@ -21,6 +22,19 @@ func L() *zap.Logger {
 // Init 根据运行模式与日志级别创建全局 Logger（便捷方法，LogDir 默认 backup）
 func Init(level, mode string) error {
 	return InitWith(Options{Level: level, Mode: mode})
+}
+
+// InitFromAppConfig 根据应用配置初始化全局 Logger。
+// 日志级别取自 cfg.Log.Level；输出方式由 cfg.Server.Mode 决定（debug→控制台，release→按日文件）。
+func InitFromAppConfig(cfg *config.AppConfig) error {
+	if cfg == nil {
+		return fmt.Errorf("app config is nil")
+	}
+	return InitWith(Options{
+		Level:  cfg.Log.Level,
+		Mode:   cfg.Server.Mode,
+		LogDir: cfg.Log.LogDir(),
+	})
 }
 
 // InitWith 根据 Options 创建全局 Logger
