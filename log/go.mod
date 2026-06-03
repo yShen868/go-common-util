@@ -2,11 +2,11 @@ module github.com/yShen868/go-common-util/log
 
 go 1.26.2
 
-replace github.com/yShen868/go-common-util/config => ../config
+//replace github.com/yShen868/go-common-util/config => ../config
 
 require (
 	github.com/gin-gonic/gin v1.12.0
-	github.com/yShen868/go-common-util/config v0.1.0
+	github.com/yShen868/go-common-util/config v0.2.0
 	go.uber.org/zap v1.28.0
 )
 
