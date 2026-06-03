@@ -13,12 +13,21 @@ go-common-util/
   log/
     go.mod         # module github.com/yShen868/go-common-util/log
     ...
+  response/
+    go.mod         # module github.com/yShen868/go-common-util/response
+    errno/         # 业务错误码
+    ...
+  ginutil/
+    go.mod         # module github.com/yShen868/go-common-util/ginutil
+    ...
 ```
 
 | 模块路径 | 说明 |
 |---|---|
 | `github.com/yShen868/go-common-util/config` | YAML 应用配置结构体与 viper 加载（server/mysql/jwt/log） |
-| `github.com/yShen868/go-common-util/log` | 基于 zap 的日志初始化；dev 控制台 / prod 按日文件；支持 `InitFromAppConfig` |
+| `github.com/yShen868/go-common-util/log` | 基于 zap 的日志初始化；dev 控制台 / prod 按日文件；`FromContext` / `WithGin` |
+| `github.com/yShen868/go-common-util/response` | 统一 JSON 响应、`errno` 子包、`Health` 处理器 |
+| `github.com/yShen868/go-common-util/ginutil` | Gin 默认中间件链、`Run` 一键启动 HTTP 服务 |
 
 根目录**没有** `go.mod`，只有 `go.work`；每个子目录（如 `log/`）是独立可发布的模块。
 
@@ -26,18 +35,16 @@ go-common-util/
 
 ```go
 import (
-    "github.com/yShen868/go-common-util/config"
-    "github.com/yShen868/go-common-util/log"
+    "github.com/gin-gonic/gin"
+    "github.com/yShen868/go-common-util/ginutil"
+    "github.com/yShen868/go-common-util/response"
 )
 
-cfg, err := config.Load()
-if err != nil {
-    // handle
+func main() {
+    _ = ginutil.Run(func(e *gin.Engine) {
+        e.GET("/api/v1/health", response.Health)
+    })
 }
-if err := log.InitFromAppConfig(cfg); err != nil {
-    // handle
-}
-log.L().Info("hello")
 ```
 
 ## 发布版本
@@ -46,8 +53,14 @@ log.L().Info("hello")
 
 可用
 ```bash
-git tag log/v0.3.0
-git push origin log/v0.3.0
+log
+git tag log/v0.4.0
+git push origin log/v0.4.0
+
+config
+git tag config/v0.1.0
+git push origin config/v0.1.0
+
 ```
 
 ```bash
@@ -55,10 +68,9 @@ git tag log/v0.1.0
 git push origin log/v0.1.0
 ```
 
-
+一次推所有 tag
 ```bash
-git tag log/v0.3.0 v0.3.0
-git push origin log/v0.3.0
+git push origin --tags
 ```
 
 
@@ -70,3 +82,9 @@ go get github.com/yShen868/go-common-util/log@log/v0.1.0
 
 仓库：`git@github.com:yShen868/go-common-util.git`
 
+
+删除 tag
+```bash
+git tag -d v0.2.0    
+git push origin :refs/tags/v0.2.0
+```

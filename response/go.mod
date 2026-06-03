@@ -1,12 +1,10 @@
-module github.com/yShen868/go-common-util/log
+module github.com/yShen868/go-common-util/response
 
 go 1.26.2
 
-replace github.com/yShen868/go-common-util/config => ../config
-
 require (
 	github.com/gin-gonic/gin v1.12.0
-	github.com/yShen868/go-common-util/config v0.1.0
+	github.com/yShen868/go-common-util/log v0.0.0
 	go.uber.org/zap v1.28.0
 )
 
@@ -42,6 +40,7 @@ require (
 	github.com/subosito/gotenv v1.6.0 // indirect
 	github.com/twitchyliquid64/golang-asm v0.15.1 // indirect
 	github.com/ugorji/go/codec v1.3.1 // indirect
+	github.com/yShen868/go-common-util/config v0.0.0 // indirect
 	go.mongodb.org/mongo-driver/v2 v2.5.0 // indirect
 	go.uber.org/multierr v1.10.0 // indirect
 	go.yaml.in/yaml/v3 v3.0.4 // indirect
@@ -53,3 +52,7 @@ require (
 	google.golang.org/protobuf v1.36.10 // indirect
 )
 
+replace (
+	github.com/yShen868/go-common-util/config => ../config
+	github.com/yShen868/go-common-util/log => ../log
+)
