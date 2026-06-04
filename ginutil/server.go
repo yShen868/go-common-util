@@ -6,6 +6,7 @@ import (
 	"github.com/gin-gonic/gin"
 	"github.com/yShen868/go-common-util/config"
 	"github.com/yShen868/go-common-util/log"
+	"github.com/yShen868/go-common-util/response"
 	"go.uber.org/zap"
 )
 
@@ -24,6 +25,7 @@ func Run(register RegisterRoutes) error {
 	gin.SetMode(cfg.Server.Mode)
 
 	e := NewEngine()
+	e.GET("/api/v1/health", response.Health)
 	if register != nil {
 		register(e)
 	}

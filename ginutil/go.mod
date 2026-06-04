@@ -2,7 +2,6 @@ module github.com/yShen868/go-common-util/ginutil
 
 go 1.26.2
 
-
 //replace (
 //	github.com/yShen868/go-common-util/config => ../config
 //	github.com/yShen868/go-common-util/log => ../log
@@ -13,6 +12,7 @@ require (
 	github.com/google/uuid v1.6.0
 	github.com/yShen868/go-common-util/config v0.2.0
 	github.com/yShen868/go-common-util/log v0.6.0
+	github.com/yShen868/go-common-util/response v0.2.0
 	go.uber.org/zap v1.28.0
 )
 
